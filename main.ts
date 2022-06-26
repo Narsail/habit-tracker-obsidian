@@ -105,11 +105,8 @@ export default class HabitTracker extends Plugin {
 				for (let day of week) {
 					const box: Box = {}
 
-					console.log(day)
-
 					let filteredEntries = habit.entries.filter(entry => entry.date == day)
 
-					console.log(filteredEntries)
 					if (filteredEntries.length > 0) {
 						const entry = filteredEntries[0]
 						box.date = entry.date
