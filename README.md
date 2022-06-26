@@ -9,7 +9,7 @@ Visualise your Habits based on DataViewJS in [Obsidian](https://obsidian.md/)
 3. Collect the data you want to display using [DataviewJS](https://blacksmithgu.github.io/obsidian-dataview/api/code-reference/)
 4. Pass the data into Heatmap Calendar using  **renderHabitTracker()** 
 
-![Habit Tracker Example]()
+![Habit Tracker Example](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExample.png)
 
 
 ## Full Example Code:
