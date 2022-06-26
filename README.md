@@ -55,7 +55,9 @@ renderHabitTracker(this.container, weekData)
 
 ### Changelog:
 
-
+---
+### Attribution
+This Plugin has been created on the foundation of [the Heatmap Calendar](https://github.com/Richardsl/heatmap-calendar-obsidian) by [Richard Slettevoll](https://github.com/Richardsl)
 
 #### [0.1.0] - 2022-02-23
 - initial release
