@@ -49,7 +49,9 @@ renderHabitTracker(this.container, weekData)
 ```
 ~~~
 
-  
+---
+### Known Limitations
+- It currently only supports up to 7 habits.
 
 ---
 
