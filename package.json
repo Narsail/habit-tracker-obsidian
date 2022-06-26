@@ -1,7 +1,7 @@
 {
-	"name": "heatmap-calendar",
-	"version": "0.4.0",
-	"description": "Activity Heatmap Calendar Plugin for Obsidian",
+	"name": "habit-tracker",
+	"version": "0.1.0",
+	"description": "Track your Habits.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "concurrently \"node esbuild.config.mjs\" \"npm run copyAndWatchMainJS\" \"npm run copyAndWatchStylesJS\" \"npm run copyAndWatchManifestJS\"",
@@ -27,5 +27,8 @@
 		"obsidian": "^0.12.17",
 		"tslib": "2.3.1",
 		"typescript": "4.4.4"
+	},
+	"dependencies": {
+		"date-fns": "^2.28.0"
 	}
 }

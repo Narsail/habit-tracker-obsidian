@@ -1,72 +1,38 @@
 import { Plugin, } from 'obsidian'
+import { add, format } from 'date-fns'
 
-interface CalendarData {
+interface WeekData {
+	week: number
 	year: number
-	colors: {
-		[index: string | number]: {
-			[index: number]: string
-		}
-	}
+	habits: Habit[]
+}
+
+interface Habit {
+	color: string
+	name: string
 	entries: Entry[]
-	showCurrentDayBorder: boolean
-	defaultEntryIntensity: number
-	intensityScaleStart: number
-	intensityScaleEnd: number
 }
 interface Entry {
 	date: string
-	intensity?: number
-	color?: string | number
-	content?: string
 }
-const DEFAULT_SETTINGS: CalendarData = {
-	year: new Date().getFullYear(),
-	colors: {
-		default: ["#c6e48b", "#7bc96f", "#49af5d", "#2e8840", "#196127",],
-	},
-	entries: [{ date: "1900-01-01", },],
-	showCurrentDayBorder: true,
-	defaultEntryIntensity: 4,
-	intensityScaleStart: 1,
-	intensityScaleEnd: 5,
+const DEFAULT_SETTINGS: WeekData = {
+	year: 2022,
+	week: 25,
+	entries: [],
 }
-export default class HeatmapCalendar extends Plugin {
+export default class HabitTracker extends Plugin {
 
-	settings: CalendarData
+	settings: WeekData
 
-	/**
-	 * Returns a number representing how many days into the year the supplied date is. 
-	 * Example: first of january is 1, third of february is 34 (31+3) 
-	 * @param date
-	 */
-	getHowManyDaysIntoYear(date: Date): number {
-		return (
-			(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) -
-				Date.UTC(date.getUTCFullYear(), 0, 0)) / 24 / 60 / 60 / 1000
-		)
-	}
-	getHowManyDaysIntoYearLocal(date: Date): number {
-		return (
-			(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) -
-				Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000
-		)
-	}
-	/** 
-	 * keeps HTMLElements passed as content from rendering above the calendar if they are outside of the displayed year
-	 */
-	removeHtmlElementsNotInYear(entries: Entry[], year: number ){
-				const calEntriesNotInDisplayedYear = entries.filter(e=>Number.parseInt(e.date.substring(0,10))!==year) ?? this.settings.entries
-				//@ts-ignore
-				calEntriesNotInDisplayedYear.forEach(e => e.content instanceof HTMLElement && e.content.remove())
-	}
-
-	clamp(input: number, min: number, max: number): number {
-		return input < min ? min : input > max ? max : input
-	}
-
-	map(current: number, inMin: number, inMax: number, outMin: number, outMax: number): number {
-		const mapped: number = ((current - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
-		return this.clamp(mapped, outMin, outMax)
+	getDateOfISOWeek(w: number, y: number) {
+	    var simple = new Date(y, 0, 1 + (w - 1) * 7);
+	    var dow = simple.getDay();
+	    var ISOweekStart = simple;
+	    if (dow <= 4)
+	        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+	    else
+	        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+	    return ISOweekStart;
 	}
 
 	async onload() {
@@ -74,39 +40,25 @@ export default class HeatmapCalendar extends Plugin {
 		await this.loadSettings()
 
 		//@ts-ignore
-		window.renderHeatmapCalendar = (el: HTMLElement, calendarData: CalendarData): void => {
+		window.renderHabitTracker = (el: HTMLElement, weekData: WeekData): void => {
 
-			const year = calendarData.year ?? this.settings.year
-			const colors = calendarData.colors ?? this.settings.colors
-			
-			this.removeHtmlElementsNotInYear(calendarData.entries, year)
-			
-			const calEntries = calendarData.entries.filter(e=>Number.parseInt(e.date.substring(0,10))===year) ?? this.settings.entries
+			const mon = this.getDateOfISOWeek(weekData.week, weekData.year)
+			const tue = add(mon, {days: 1})
+			const wed = add(tue, {days: 1})
+			const thu = add(wed, {days: 1})
+			const fri = add(thu, {days: 1})
+			const sat = add(fri, {days: 1})
+			const sun = add(sat, {days: 1})
 
-			const showCurrentDayBorder = calendarData.showCurrentDayBorder ?? this.settings.showCurrentDayBorder
-
-			const defaultEntryIntensity = calendarData.defaultEntryIntensity ?? this.settings.defaultEntryIntensity
-
-			const intensities = calEntries.filter(e => e.intensity).map(e => e.intensity)
-			const minimumIntensity = intensities.length ? Math.min(...intensities) : this.settings.intensityScaleStart
-			const maximumIntensity = intensities.length ? Math.max(...intensities) : this.settings.intensityScaleEnd
-			const intensityScaleStart = calendarData.intensityScaleStart ?? minimumIntensity
-			const intensityScaleEnd = calendarData.intensityScaleEnd ?? maximumIntensity
-
-			const mappedEntries: Entry[] = []
-			calEntries.forEach(e => {
-				const newEntry = {
-					intensity: defaultEntryIntensity,
-					...e,
-				}
-				const colorIntensities = colors[e.color] ?? colors[Object.keys(colors)[0]]
-				const numOfColorIntensities = Object.keys(colorIntensities).length
-				newEntry.intensity = Math.round(this.map(newEntry.intensity, intensityScaleStart, intensityScaleEnd, 1, numOfColorIntensities))
-				mappedEntries[this.getHowManyDaysIntoYear(new Date(e.date))] = newEntry
-			})
-
-			const firstDayOfYear = new Date(Date.UTC(year, 0, 1))
-			let numberOfEmptyDaysBeforeYearBegins = (firstDayOfYear.getUTCDay() + 6) % 7
+			const week = [
+				format(mon, 'yyyy-MM-dd'),
+				format(tue, 'yyyy-MM-dd'),
+				format(wed, 'yyyy-MM-dd'),
+				format(thu, 'yyyy-MM-dd'),
+				format(fri, 'yyyy-MM-dd'),
+				format(sat, 'yyyy-MM-dd'),
+				format(sun, 'yyyy-MM-dd')
+			]
 
 			interface Box {
 				backgroundColor?: string;
@@ -117,34 +69,6 @@ export default class HeatmapCalendar extends Plugin {
 
 			const boxes: Array<Box> = []
 
-			while (numberOfEmptyDaysBeforeYearBegins) {
-				boxes.push({ backgroundColor: "transparent", })
-				numberOfEmptyDaysBeforeYearBegins--
-			}
-			const lastDayOfYear = new Date(Date.UTC(year, 11, 31))
-			const numberOfDaysInYear = this.getHowManyDaysIntoYear(lastDayOfYear) //eg 365 or 366
-			const todaysDayNumberLocal = this.getHowManyDaysIntoYearLocal(new Date())
-
-			for (let day = 1; day <= numberOfDaysInYear; day++) {
-
-				const box: Box = {}
-
-				if (day === todaysDayNumberLocal && showCurrentDayBorder) box.classNames = "today"
-
-				if (mappedEntries[day]) {
-					const entry = mappedEntries[day]
-
-					box.date = entry.date
-
-					if (entry.content) box.content = entry.content
-
-					const currentDayColors = entry.color ? colors[entry.color] : colors[Object.keys(colors)[0]]
-					box.backgroundColor = currentDayColors[entry.intensity - 1]
-
-				}
-				boxes.push(box)
-			}
-
 			const heatmapCalendarGraphDiv = createDiv({
 				cls: "heatmap-calendar-graph",
 				parent: el,
@@ -152,40 +76,51 @@ export default class HeatmapCalendar extends Plugin {
 
 			createDiv({
 				cls: "heatmap-calendar-year",
-				text: String(year).slice(2),
 				parent: heatmapCalendarGraphDiv,
 			})
 
 			const heatmapCalendarMonthsUl = createEl("ul", {
-				cls: "heatmap-calendar-months",
+				cls: "heatmap-calendar-weekdays",
 				parent: heatmapCalendarGraphDiv,
 			})
 
-			createEl("li", { text: "Jan", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Feb", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Mar", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Apr", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "May", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Jun", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Jul", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Aug", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Sep", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Oct", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Nov", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Dec", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Mon", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Tue", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Wed", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Thu", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Fri", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Sat", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Sun", parent: heatmapCalendarMonthsUl, })
+
+			// Put the Habits here
 
 			const heatmapCalendarDaysUl = createEl("ul", {
-				cls: "heatmap-calendar-days",
+				cls: "heatmap-calendar-habits",
 				parent: heatmapCalendarGraphDiv,
 			})
 
-			createEl("li", { text: "Mon", parent: heatmapCalendarDaysUl, })
-			createEl("li", { text: "Tue", parent: heatmapCalendarDaysUl, })
-			createEl("li", { text: "Wed", parent: heatmapCalendarDaysUl, })
-			createEl("li", { text: "Thu", parent: heatmapCalendarDaysUl, })
-			createEl("li", { text: "Fri", parent: heatmapCalendarDaysUl, })
-			createEl("li", { text: "Sat", parent: heatmapCalendarDaysUl, })
-			createEl("li", { text: "Sun", parent: heatmapCalendarDaysUl, })
+			for (let habit of weekData.habits) {
+				createEl("li", { text: habit.name, parent: heatmapCalendarDaysUl, })
+
+				for (let day of week) {
+					const box: Box = {}
+
+					console.log(day)
+
+					let filteredEntries = habit.entries.filter(entry => entry.date == day)
+
+					console.log(filteredEntries)
+					if (filteredEntries.length > 0) {
+						const entry = filteredEntries[0]
+						box.date = entry.date
+						box.backgroundColor = habit.color
+					}
+
+					boxes.push(box)
+				}
+
+			}
+
 
 			const heatmapCalendarBoxesUl = createEl("ul", {
 				cls: "heatmap-calendar-boxes",

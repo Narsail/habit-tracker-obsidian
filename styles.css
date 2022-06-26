@@ -10,33 +10,34 @@
         display: grid;
         grid-template-columns: auto 1fr; 
         grid-template-areas:
-          'year months'
-          'days boxes';
+          'year habits'
+          'weekdays boxes';
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
           Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
           'Segoe UI Symbol';
         width:100%;
       }
-      .heatmap-calendar-months {
+      .heatmap-calendar-habits {
         display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        grid-area: months;
+        text-align: center;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-area: habits;
         margin-top: 0.1em;
         margin-bottom: 0.3em;
         grid-gap: 0.3em;
       }
-      .heatmap-calendar-days {
-        grid-area: days;
+      .heatmap-calendar-weekdays {
+        grid-area: weekdays;
         margin-left: 0.1em;
         margin-right: 0.3em;
         white-space: nowrap; 
       }
       .heatmap-calendar-boxes {
         grid-auto-flow: column;
-        grid-template-columns: repeat(53, minmax(0, 1fr));
+        grid-template-columns: repeat(7, minmax(0, 1fr));
         grid-area: boxes;
       }
-      .heatmap-calendar-days,
+      .heatmap-calendar-weekdays,
       .heatmap-calendar-boxes {
         display: grid;
         grid-gap: 0.3em;
@@ -46,10 +47,6 @@
         grid-area: year;
         font-weight: bold;
         font-size: 1.2em;
-      }
-      /* only label three days of the week */
-      .heatmap-calendar-days li:nth-child(odd) {
-        visibility: hidden;
       }
       .heatmap-calendar-boxes li {
         position: relative;
