@@ -18,7 +18,7 @@ interface Entry {
 const DEFAULT_SETTINGS: WeekData = {
 	year: 2022,
 	week: 25,
-	entries: [],
+	habits: [],
 }
 export default class HabitTracker extends Plugin {
 
