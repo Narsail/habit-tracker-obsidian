@@ -8,12 +8,13 @@ interface WeekData {
 }
 
 interface Habit {
-	color: string
+	colors: string[] 
 	name: string
 	entries: Entry[]
 }
 interface Entry {
 	date: string
+	value?: number
 }
 const DEFAULT_SETTINGS: WeekData = {
 	year: 2022,
@@ -102,6 +103,32 @@ export default class HabitTracker extends Plugin {
 			for (let habit of weekData.habits) {
 				createEl("li", { text: habit.name, parent: heatmapCalendarDaysUl, })
 
+				// Check Colors
+				const colors = habit.colors
+				const numberOfColors = colors.length
+				if (numberOfColors == 0) {
+					throw new Error("Missing Colors for " + habit.name)
+				}
+
+				// Check whether we have values
+				const values = habit.entries.filter(entry => entry.value != null).map(entry => entry.value!)
+				const min = Math.min.apply(null, values)
+				const max = Math.max.apply(null, values)
+
+				let colorsWithThreshold: { [key: number]: string} = {}
+
+				if (values.length <= 1) {
+					colorsWithThreshold[0] = colors[0]
+				} else {
+					const steps = (max - min) / numberOfColors
+					let multiplier = 1
+					for (let color of colors) {
+						colorsWithThreshold[(min+ steps) * multiplier] = color
+						multiplier ++
+					}
+				}
+
+				// Create Boxes
 				for (let day of week) {
 					const box: Box = {}
 
@@ -110,7 +137,20 @@ export default class HabitTracker extends Plugin {
 					if (filteredEntries.length > 0) {
 						const entry = filteredEntries[0]
 						box.date = entry.date
-						box.backgroundColor = habit.color
+
+						const value = entry.value ?? 0
+
+						let color = ""
+						let closestValue = Infinity
+
+						for (let threshold in colorsWithThreshold) {
+							if (value <= threshold && threshold < closestValue) {
+								closestValue = threshold
+								color = colorsWithThreshold[threshold]
+							}
+						}
+
+						box.backgroundColor = color
 					}
 
 					boxes.push(box)
