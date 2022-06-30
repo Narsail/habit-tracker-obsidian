@@ -143,10 +143,10 @@ export default class HabitTracker extends Plugin {
 						let color = ""
 						let closestValue: number = Infinity
 
-						for (let threshold: number in colorsWithThreshold) {
+						for (let [threshold, thresholdColor] of Object.entries(colorsWithThreshold)) {
 							if (value <= threshold && threshold < closestValue) {
 								closestValue = threshold
-								color = colorsWithThreshold[threshold]
+								color = thresholdColor
 							}
 						}
 
