@@ -138,12 +138,12 @@ export default class HabitTracker extends Plugin {
 						const entry = filteredEntries[0]
 						box.date = entry.date
 
-						const value = entry.value ?? 0
+						const value: number = entry.value ?? 0
 
 						let color = ""
-						let closestValue = Infinity
+						let closestValue: number = Infinity
 
-						for (let threshold in colorsWithThreshold) {
+						for (let threshold: number in colorsWithThreshold) {
 							if (value <= threshold && threshold < closestValue) {
 								closestValue = threshold
 								color = colorsWithThreshold[threshold]
