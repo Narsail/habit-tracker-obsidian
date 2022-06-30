@@ -21,7 +21,7 @@ const weekData = {
 	week: 25,
 	habits: [
 		{
-			color: "#c6e48b",
+			colors: ["#c6e48b"],
 			name: "iRacing",
 			entries: [
 				{
@@ -33,7 +33,7 @@ const weekData = {
 			]
 		},
 		{
-			color: "#49af5d",
+			colors: ["#49af5d"],
 			name: "Language",
 			entries: [
 				{
@@ -54,12 +54,17 @@ renderHabitTracker(this.container, weekData)
 - It currently only supports up to 7 habits.
 
 ---
-
-### Changelog:
-
----
 ### Attribution
 This Plugin has been created on the foundation of [the Heatmap Calendar](https://github.com/Richardsl/heatmap-calendar-obsidian) by [Richard Slettevoll](https://github.com/Richardsl)
 
-#### [0.1.0] - 2022-02-23
+---
+
+### Changelog:
+
+#### [0.2.0] - 2022-06-30
+- Added the concept of intensities. 
+- Provide a value to the entity
+- Provide multiple colors to map the values equidistant to the colors based on the min and max value
+
+#### [0.1.0] - 2022-06-26
 - initial release
