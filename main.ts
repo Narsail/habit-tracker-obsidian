@@ -123,7 +123,7 @@ export default class HabitTracker extends Plugin {
 					const steps = (max - min) / numberOfColors
 					let multiplier = 1
 					for (let color of colors) {
-						colorsWithThreshold[(min+ steps) * multiplier] = color
+						colorsWithThreshold[min + (steps * multiplier)] = color
 						multiplier ++
 					}
 				}
