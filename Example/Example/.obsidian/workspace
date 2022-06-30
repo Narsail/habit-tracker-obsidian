@@ -1,0 +1,97 @@
+{
+  "main": {
+    "id": "bac095591e294817",
+    "type": "split",
+    "children": [
+      {
+        "id": "6b898d7276a238f5",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Habit Tracker Example.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "37821e22e70891e9",
+    "type": "split",
+    "children": [
+      {
+        "id": "be5f6f181aeb09a4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b8c7eb5349cd7ad0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "6257a4642c6780d4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "5633bd933897e5de",
+    "type": "split",
+    "children": [
+      {
+        "id": "cfa0a4cfb31d6fd0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ea94b6bc6a52334d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Habit Tracker Example.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "6b898d7276a238f5",
+  "lastOpenFiles": [
+    "Habit Tracker Example.md",
+    "data/2022-07-01.md",
+    "data/2022-06-28.md",
+    "data/2022-06-29.md",
+    "data/2022-06-27.md"
+  ]
+}

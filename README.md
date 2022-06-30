@@ -10,6 +10,7 @@ Visualise your Habits based on DataViewJS in [Obsidian](https://obsidian.md/)
 4. Pass the data into Heatmap Calendar using  **renderHabitTracker()** 
 
 ![Habit Tracker Example](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExample.png)
+![Habit Tracker Example with Values](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExampleWithValues.png)
 
 
 ## Full Example Code:
@@ -21,23 +22,26 @@ const weekData = {
 	week: 25,
 	habits: [
 		{
-			colors: ["#c6e48b"],
+			colors: ["#c6e48b", "#49af5d"],
 			name: "iRacing",
 			entries: [
 				{
-					date: "2022-06-26"
+					date: "2022-06-26",
+					value: 30
 				},
 				{
-					date: "2022-06-21"
+					date: "2022-06-21",
+					value: 45
 				}
 			]
 		},
 		{
-			colors: ["#49af5d"],
+			colors: ["#49af5d", "#c6e48b"],
 			name: "Language",
 			entries: [
 				{
-					date: "2022-06-23"
+					date: "2022-06-23",
+					value: 30
 				}
 			]
 		}
