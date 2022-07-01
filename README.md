@@ -65,6 +65,11 @@ This Plugin has been created on the foundation of [the Heatmap Calendar](https:/
 
 ### Changelog:
 
+#### [0.3.0] - 2022-07-01
+- Fixed a bug where a value wasn't assigned to the right color
+- Added tests for two core logic functions
+- Added rollup for better file management
+
 #### [0.2.0] - 2022-06-30
 - Added the concept of intensities. 
 - Provide a value to the entity
