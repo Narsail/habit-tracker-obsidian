@@ -8,10 +8,9 @@
 		"copyAndWatchMainJS": "cpx \"main.js\" \"Example\\.obsidian\\plugins\\heatmap-calendar\" -w",
 		"copyAndWatchStylesJS": "cpx \"styles.css\" \"Example\\.obsidian\\plugins\\heatmap-calendar\" -w",
 		"copyAndWatchManifestJS": "cpx \"manifest.json\" \"Example\\.obsidian\\plugins\\heatmap-calendar\" -w",
-		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production && rollup main.js --format cjs --file build/main.js",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
-		"test": "jest",
-		"rollup": "rollup main.js --format cjs --file build/main.js"
+		"test": "jest"
 	},
 	"keywords": [
 		"obsidian"
