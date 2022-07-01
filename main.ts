@@ -1,26 +1,14 @@
 import { Plugin, } from 'obsidian'
 import { add, format } from 'date-fns'
+import { colorForValue, colorsWithThresholdFor } from 'common'
+import { WeekData, Habit, Entry } from 'models'
 
-interface WeekData {
-	week: number
-	year: number
-	habits: Habit[]
-}
-
-interface Habit {
-	colors: string[] 
-	name: string
-	entries: Entry[]
-}
-interface Entry {
-	date: string
-	value?: number
-}
 const DEFAULT_SETTINGS: WeekData = {
 	year: 2022,
 	week: 25,
 	habits: [],
 }
+
 export default class HabitTracker extends Plugin {
 
 	settings: WeekData
@@ -111,22 +99,7 @@ export default class HabitTracker extends Plugin {
 				}
 
 				// Check whether we have values
-				const values = habit.entries.filter(entry => entry.value != null).map(entry => entry.value!)
-				const min = Math.min.apply(null, values)
-				const max = Math.max.apply(null, values)
-
-				let colorsWithThreshold: { [key: number]: string} = {}
-
-				if (values.length <= 1) {
-					colorsWithThreshold[0] = colors[0]
-				} else {
-					const steps = (max - min) / numberOfColors
-					let multiplier = 1
-					for (let color of colors) {
-						colorsWithThreshold[min + (steps * multiplier)] = color
-						multiplier ++
-					}
-				}
+				const colorsWithThreshold: { [key: number]: string} = colorsWithThresholdFor(habit.entries, colors)
 
 				// Create Boxes
 				for (let day of week) {
@@ -140,17 +113,7 @@ export default class HabitTracker extends Plugin {
 
 						const value: number = entry.value ?? 0
 
-						let color = ""
-						let closestValue: number = Infinity
-
-						for (let [threshold, thresholdColor] of Object.entries(colorsWithThreshold)) {
-							if (value <= threshold && threshold < closestValue) {
-								closestValue = threshold
-								color = thresholdColor
-							}
-						}
-
-						box.backgroundColor = color
+						box.backgroundColor = colorForValue(value, colorsWithThreshold)
 					}
 
 					boxes.push(box)
@@ -190,6 +153,3 @@ export default class HabitTracker extends Plugin {
 		await this.saveData(this.settings)
 	}
 }
-
-
-
