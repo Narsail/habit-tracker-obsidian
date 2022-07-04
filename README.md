@@ -7,7 +7,7 @@ Visualise your Habits based on DataViewJS in [Obsidian](https://obsidian.md/)
 1. Annotate the data you want to track in your daily notes (see [Dataview annotation documentation](https://blacksmithgu.github.io/obsidian-dataview/data-annotation/)) 
 2. Create a [DataviewJS block](https://blacksmithgu.github.io/obsidian-dataview/api/intro/) wherever you want the Habit Tracker to display.  
 3. Collect the data you want to display using [DataviewJS](https://blacksmithgu.github.io/obsidian-dataview/api/code-reference/)
-4. Pass the data into Heatmap Calendar using  **renderHabitTracker()** 
+4. Pass the data into Habit Tracker using  **renderHabitTracker()** 
 
 ![Habit Tracker Example](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExample.png)
 ![Habit Tracker Example with Values](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExampleWithValues.png)
@@ -64,6 +64,11 @@ This Plugin has been created on the foundation of [the Heatmap Calendar](https:/
 ---
 
 ### Changelog:
+
+#### [0.3.0] - 2022-07-01
+- Fixed a bug where a value wasn't assigned to the right color
+- Added tests for two core logic functions
+- Added rollup for better file management
 
 #### [0.2.0] - 2022-06-30
 - Added the concept of intensities. 
