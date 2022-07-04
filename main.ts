@@ -1,7 +1,7 @@
 import { Plugin, } from 'obsidian'
 import { add, format } from 'date-fns'
-import { colorForValue, colorsWithThresholdFor } from 'src/common'
-import { WeekData, Habit, Entry, Box } from 'src/models'
+import { colorForValue, colorsWithThresholdFor } from 'common'
+import { WeekData, Habit, Entry } from 'models'
 
 export default class HabitTracker extends Plugin {
 
@@ -40,6 +40,13 @@ export default class HabitTracker extends Plugin {
 				format(sat, 'yyyy-MM-dd'),
 				format(sun, 'yyyy-MM-dd')
 			]
+
+			interface Box {
+				backgroundColor?: string;
+				date?: string;
+				content?: string;
+				classNames?: string
+			}
 
 			const boxes: Array<Box> = []
 
