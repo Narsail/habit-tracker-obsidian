@@ -14,3 +14,10 @@ export interface Entry {
 	date: string
 	value?: number
 }
+
+export interface Box {
+	backgroundColor?: string;
+	date?: string;
+	content?: string;
+	classNames?: string
+}

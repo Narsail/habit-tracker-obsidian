@@ -5,9 +5,9 @@
 	"main": "main.js",
 	"scripts": {
 		"dev": "concurrently \"node esbuild.config.mjs\" \"npm run copyAndWatchMainJS\" \"npm run copyAndWatchStylesJS\" \"npm run copyAndWatchManifestJS\"",
-		"copyAndWatchMainJS": "cpx \"main.js\" \"Example\\.obsidian\\plugins\\heatmap-calendar\" -w",
-		"copyAndWatchStylesJS": "cpx \"styles.css\" \"Example\\.obsidian\\plugins\\heatmap-calendar\" -w",
-		"copyAndWatchManifestJS": "cpx \"manifest.json\" \"Example\\.obsidian\\plugins\\heatmap-calendar\" -w",
+		"copyAndWatchMainJS": "cpx \"main.js\" \"Example\\.obsidian\\plugins\\habit-tracker\" -w",
+		"copyAndWatchStylesJS": "cpx \"styles.css\" \"Example\\.obsidian\\plugins\\habit-tracker\" -w",
+		"copyAndWatchManifestJS": "cpx \"manifest.json\" \"Example\\.obsidian\\plugins\\habit-tracker\" -w",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production && rollup main.js --format cjs --file build/main.js",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"test": "jest"
