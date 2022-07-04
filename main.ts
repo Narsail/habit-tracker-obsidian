@@ -3,15 +3,7 @@ import { add, format } from 'date-fns'
 import { colorForValue, colorsWithThresholdFor } from 'common'
 import { WeekData, Habit, Entry } from 'models'
 
-const DEFAULT_SETTINGS: WeekData = {
-	year: 2022,
-	week: 25,
-	habits: [],
-}
-
 export default class HabitTracker extends Plugin {
-
-	settings: WeekData
 
 	getDateOfISOWeek(w: number, y: number) {
 	    var simple = new Date(y, 0, 1 + (w - 1) * 7);
@@ -73,13 +65,13 @@ export default class HabitTracker extends Plugin {
 				parent: habitTrackerViewDiv,
 			})
 
-			createEl("li", { text: "Mon", parent: habitTrackerWeekDaysUL, })
-			createEl("li", { text: "Tue", parent: habitTrackerWeekDaysUL, })
-			createEl("li", { text: "Wed", parent: habitTrackerWeekDaysUL, })
-			createEl("li", { text: "Thu", parent: habitTrackerWeekDaysUL, })
-			createEl("li", { text: "Fri", parent: habitTrackerWeekDaysUL, })
-			createEl("li", { text: "Sat", parent: habitTrackerWeekDaysUL, })
-			createEl("li", { text: "Sun", parent: habitTrackerWeekDaysUL, })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Mon", })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Tue", })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Wed", })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Fri", })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Sat", })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Thu", })
+			habitTrackerWeekDaysUL.createEl("li", { text: "Sun", })
 
 			// Put the Habits here
 
@@ -89,7 +81,7 @@ export default class HabitTracker extends Plugin {
 			})
 
 			for (let habit of weekData.habits) {
-				createEl("li", { text: habit.name, parent: habitTrackerHabitsUl, })
+				habitTrackerHabitsUl.createEl("li", { text: habit.name, })
 
 				// Check Colors
 				const colors = habit.colors
@@ -128,28 +120,15 @@ export default class HabitTracker extends Plugin {
 			})
 
 			boxes.forEach(e => {
-				createEl("li", {
+				habitTrackerBoxesUl.createEl("li", {
 					text: e.content,
 					attr: {
 						...e.backgroundColor && { style: `background-color: ${e.backgroundColor};`, },
 					},
 					cls: e.classNames,
-					parent: habitTrackerBoxesUl,
 				})
 			})
 
 		}
-	}
-
-	onunload() {
-
-	}
-
-	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData())
-	}
-
-	async saveSettings() {
-		await this.saveData(this.settings)
 	}
 }
