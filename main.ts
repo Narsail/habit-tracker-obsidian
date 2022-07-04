@@ -58,38 +58,38 @@ export default class HabitTracker extends Plugin {
 
 			const boxes: Array<Box> = []
 
-			const heatmapCalendarGraphDiv = createDiv({
-				cls: "heatmap-calendar-graph",
+			const habitTrackerViewDiv = createDiv({
+				cls: "habit-tracker-view",
 				parent: el,
 			})
 
 			createDiv({
-				cls: "heatmap-calendar-year",
-				parent: heatmapCalendarGraphDiv,
+				cls: "habit-tracker-year",
+				parent: habitTrackerViewDiv,
 			})
 
-			const heatmapCalendarMonthsUl = createEl("ul", {
-				cls: "heatmap-calendar-weekdays",
-				parent: heatmapCalendarGraphDiv,
+			const habitTrackerWeekDaysUL = createEl("ul", {
+				cls: "habit-tracker-weekdays",
+				parent: habitTrackerViewDiv,
 			})
 
-			createEl("li", { text: "Mon", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Tue", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Wed", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Thu", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Fri", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Sat", parent: heatmapCalendarMonthsUl, })
-			createEl("li", { text: "Sun", parent: heatmapCalendarMonthsUl, })
+			createEl("li", { text: "Mon", parent: habitTrackerWeekDaysUL, })
+			createEl("li", { text: "Tue", parent: habitTrackerWeekDaysUL, })
+			createEl("li", { text: "Wed", parent: habitTrackerWeekDaysUL, })
+			createEl("li", { text: "Thu", parent: habitTrackerWeekDaysUL, })
+			createEl("li", { text: "Fri", parent: habitTrackerWeekDaysUL, })
+			createEl("li", { text: "Sat", parent: habitTrackerWeekDaysUL, })
+			createEl("li", { text: "Sun", parent: habitTrackerWeekDaysUL, })
 
 			// Put the Habits here
 
-			const heatmapCalendarDaysUl = createEl("ul", {
-				cls: "heatmap-calendar-habits",
-				parent: heatmapCalendarGraphDiv,
+			const habitTrackerHabitsUl = createEl("ul", {
+				cls: "habit-tracker-habits",
+				parent: habitTrackerViewDiv,
 			})
 
 			for (let habit of weekData.habits) {
-				createEl("li", { text: habit.name, parent: heatmapCalendarDaysUl, })
+				createEl("li", { text: habit.name, parent: habitTrackerHabitsUl, })
 
 				// Check Colors
 				const colors = habit.colors
@@ -122,9 +122,9 @@ export default class HabitTracker extends Plugin {
 			}
 
 
-			const heatmapCalendarBoxesUl = createEl("ul", {
-				cls: "heatmap-calendar-boxes",
-				parent: heatmapCalendarGraphDiv,
+			const habitTrackerBoxesUl = createEl("ul", {
+				cls: "habit-tracker-boxes",
+				parent: habitTrackerViewDiv,
 			})
 
 			boxes.forEach(e => {
@@ -134,7 +134,7 @@ export default class HabitTracker extends Plugin {
 						...e.backgroundColor && { style: `background-color: ${e.backgroundColor};`, },
 					},
 					cls: e.classNames,
-					parent: heatmapCalendarBoxesUl,
+					parent: habitTrackerBoxesUl,
 				})
 			})
 

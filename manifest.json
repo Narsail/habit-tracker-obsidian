@@ -1,7 +1,7 @@
 {
 	"id": "habit-tracker",
 	"name": "Habit Tracker",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"minAppVersion": "0.12.0",
 	"description": "Track your Habits.",
 	"author": "David Moeller",
