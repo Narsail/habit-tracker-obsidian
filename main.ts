@@ -124,4 +124,6 @@ export default class HabitTracker extends Plugin {
 
 		}
 	}
+
+	async loadSettings() {}
 }
