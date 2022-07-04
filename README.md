@@ -65,6 +65,10 @@ This Plugin has been created on the foundation of [the Heatmap Calendar](https:/
 
 ### Changelog:
 
+#### [0.3.2] - 2022-07-04
+- Removed settings references
+- Make the EL and UL creation cleaner
+
 #### [0.3.1] - 2022-07-04
 - Remove conflict with Heatmap calendar due to same named css classses
 
