@@ -9,14 +9,14 @@ Visualise your Habits based on DataViewJS in [Obsidian](https://obsidian.md/)
 3. Collect the data you want to display using [DataviewJS](https://blacksmithgu.github.io/obsidian-dataview/api/code-reference/)
 4. Pass the data into Habit Tracker using  **renderHabitTracker()** 
 
-![Habit Tracker Example](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExample.png)
-![Habit Tracker Example with Values](https://github.com/Narsail/habit-tracker-obsidian/blob/master/github-images/trackerExampleWithValues.png)
+![Habit Tracker Example](https://raw.githubusercontent.com/Narsail/habit-tracker-obsidian/master/github-images/trackerExample.png)
+![Habit Tracker Example with Values](https://raw.githubusercontent.com/Narsail/habit-tracker-obsidian/master/github-images/trackerExampleWithValues.png)
 
 
 ## Full Example Code:
 
 ~~~javascript
-\```dataviewjs
+```dataviewjs
 const weekData = {
 	year: 2022,
 	week: 25,

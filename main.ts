@@ -6,9 +6,9 @@ import { WeekData, Habit, Entry, Box } from 'models';
 export default class HabitTracker extends Plugin {
 
 	getDateOfISOWeek(w: number, y: number) {
-	    var simple = new Date(y, 0, 1 + (w - 1) * 7);
-	    var dow = simple.getDay();
-	    var ISOweekStart = simple;
+	    const simple = new Date(y, 0, 1 + (w - 1) * 7);
+	    const dow = simple.getDay();
+	    const ISOweekStart = simple;
 	    if (dow <= 4)
 	        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
 	    else
@@ -41,19 +41,16 @@ export default class HabitTracker extends Plugin {
 
 			const boxes: Array<Box> = [];
 
-			const habitTrackerViewDiv = createDiv({
+			const habitTrackerViewDiv = el.createDiv({
 				cls: "habit-tracker-view",
-				parent: el,
 			});
 
-			createDiv({
+			habitTrackerViewDiv.createDiv({
 				cls: "habit-tracker-year",
-				parent: habitTrackerViewDiv,
 			});
 
-			const habitTrackerWeekDaysUL = createEl("ul", {
+			const habitTrackerWeekDaysUL = habitTrackerViewDiv.createEl("ul", {
 				cls: "habit-tracker-weekdays",
-				parent: habitTrackerViewDiv,
 			});
 
 			habitTrackerWeekDaysUL.createEl("li", { text: "Mon", });
@@ -66,9 +63,8 @@ export default class HabitTracker extends Plugin {
 
 			// Put the Habits here
 
-			const habitTrackerHabitsUl = createEl("ul", {
+			const habitTrackerHabitsUl = habitTrackerViewDiv.createEl("ul", {
 				cls: "habit-tracker-habits",
-				parent: habitTrackerViewDiv,
 			});
 
 			for (let habit of weekData.habits) {
@@ -88,7 +84,7 @@ export default class HabitTracker extends Plugin {
 				for (let day of week) {
 					const box: Box = {};
 
-					let filteredEntries = habit.entries.filter(entry => entry.date == day);
+					let filteredEntries = habit.entries.filter(entry => entry.date === day);
 
 					if (filteredEntries.length > 0) {
 						const entry = filteredEntries[0];
@@ -105,9 +101,8 @@ export default class HabitTracker extends Plugin {
 			};
 
 
-			const habitTrackerBoxesUl = createEl("ul", {
+			const habitTrackerBoxesUl = habitTrackerViewDiv.createEl("ul", {
 				cls: "habit-tracker-boxes",
-				parent: habitTrackerViewDiv,
 			});
 
 			boxes.forEach(e => {
