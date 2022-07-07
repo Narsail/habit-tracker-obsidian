@@ -65,6 +65,9 @@ This Plugin has been created on the foundation of [the Heatmap Calendar](https:/
 
 ### Changelog:
 
+#### [0.3.3] - 2022-07-07
+- Further clean up as per [Request](https://github.com/obsidianmd/obsidian-releases/pull/1027/#issuecomment-1177006856)
+
 #### [0.3.2] - 2022-07-04
 - Removed settings references
 - Make the EL and UL creation cleaner
