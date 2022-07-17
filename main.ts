@@ -56,9 +56,9 @@ export default class HabitTracker extends Plugin {
 			habitTrackerWeekDaysUL.createEl("li", { text: "Mon", });
 			habitTrackerWeekDaysUL.createEl("li", { text: "Tue", });
 			habitTrackerWeekDaysUL.createEl("li", { text: "Wed", });
+			habitTrackerWeekDaysUL.createEl("li", { text: "Thu", });
 			habitTrackerWeekDaysUL.createEl("li", { text: "Fri", });
 			habitTrackerWeekDaysUL.createEl("li", { text: "Sat", });
-			habitTrackerWeekDaysUL.createEl("li", { text: "Thu", });
 			habitTrackerWeekDaysUL.createEl("li", { text: "Sun", });
 
 			// Put the Habits here
